@@ -11,6 +11,7 @@ def get_parser():
     parser.add_argument("-c")
     parser.add_argument("-l")
     parser.add_argument("-w")
+    parser.add_argument("-m")
 
     return parser
 
@@ -30,7 +31,11 @@ def wc_word_count(filepath):
         return len(f.read().split())
 
 
-def main(raw_args=None):
+def wc_char_count(filepath):
+    with open(filepath, "r", newline='') as f:
+        return len(f.read())
+
+def main():
     parser = get_parser()
     args = parser.parse_args()
     if args.c:
@@ -39,7 +44,8 @@ def main(raw_args=None):
         print(wc_newline(args.l), args.l)
     if args.w:
         print(wc_word_count(args.w), args.w)
-
+    if args.m:
+        print(wc_char_count(args.m), args.m)
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
