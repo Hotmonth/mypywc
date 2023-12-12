@@ -21,15 +21,29 @@ def wc_char_count(filepath):
         return len(f.read())
 
 
+def parse_arguments(argv):
+    args = argv[1:]
+    length = len(args)
+    if length == 0:
+        return None, None
+    if length == 1:
+        if args[0][0] == '-':
+            return args[0], input("Enter a path to file: ")
+        else:
+            return [-1], args[0]
+
+    return args[0], args[1]
+
+
 def wc(argv):
     output = "  "
-    options = argv[1:-1]
-    filepath = argv[-1]
-
-    if not options:
+    if len(argv) > 3:
+        return "Too many arguments"
+    options, filepath = parse_arguments(argv)
+    if options == [-1]:
         output = f"  {wc_bytes(filepath)} {wc_newline(filepath)} {wc_word_count(filepath)} {filepath}"
         return output
-    options = options[0]
+
     if 'c' in options:
         output += f"{wc_bytes(filepath)} "
     if 'l' in options:
