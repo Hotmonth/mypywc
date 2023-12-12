@@ -27,7 +27,7 @@ def wc(argv):
     filepath = argv[-1]
 
     if not options:
-        output = f"  {wc_bytes(filepath)} {wc_newline(filepath)} {wc_word_count(filepath)} {wc_char_count(filepath)} {filepath}"
+        output = f"  {wc_bytes(filepath)} {wc_newline(filepath)} {wc_word_count(filepath)} {filepath}"
         return output
     options = options[0]
     if 'c' in options:
