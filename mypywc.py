@@ -40,6 +40,8 @@ def wc(argv):
     if len(argv) > 3:
         return "Too many arguments"
     options, filepath = parse_arguments(argv)
+    if not options or not filepath:
+        return "No arguments given"
     if options == [-1]:
         output = f"  {wc_bytes(filepath)} {wc_newline(filepath)} {wc_word_count(filepath)} {filepath}"
         return output
