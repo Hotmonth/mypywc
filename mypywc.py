@@ -1,19 +1,4 @@
-import argparse
 import sys
-
-
-def get_parser():
-    parser = argparse.ArgumentParser(
-        description="My implementation of wc command",
-        epilog="By Medet Ramazan"
-    )
-
-    parser.add_argument("-c")
-    parser.add_argument("-l")
-    parser.add_argument("-w")
-    parser.add_argument("-m")
-
-    return parser
 
 
 def wc_bytes(filepath):
@@ -35,17 +20,28 @@ def wc_char_count(filepath):
     with open(filepath, "r", newline='') as f:
         return len(f.read())
 
-def main():
-    parser = get_parser()
-    args = parser.parse_args()
-    if args.c:
-        print(wc_bytes(args.c), args.c)
-    if args.l:
-        print(wc_newline(args.l), args.l)
-    if args.w:
-        print(wc_word_count(args.w), args.w)
-    if args.m:
-        print(wc_char_count(args.m), args.m)
+
+def wc(argv):
+    output = "  "
+    options = argv[1:-1]
+    filepath = argv[-1]
+
+    if not options:
+        output = f"  {wc_bytes(filepath)} {wc_newline(filepath)} {wc_word_count(filepath)} {wc_char_count(filepath)} {filepath}"
+        return output
+    options = options[0]
+    if 'c' in options:
+        output += f"{wc_bytes(filepath)} "
+    if 'l' in options:
+        output += f"{wc_newline(filepath)} "
+    if 'w' in options:
+        output += f"{wc_word_count(filepath)} "
+    if 'm' in options:
+        output += f"{wc_char_count(filepath)} "
+    output += filepath
+
+    return output
+
 
 if __name__ == '__main__':
-    main()
+    print(wc(sys.argv))
